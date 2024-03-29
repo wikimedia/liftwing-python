@@ -1,7 +1,7 @@
 import json
 import requests
 
-def revert_risk_api_request(language: str, revision_id: int, use_auth: bool, access_token: str, user_agent: str):
+def revert_risk_api_request(language: str, revision_id: int):
     use_auth = False
     inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict"
     if use_auth:
@@ -20,12 +20,16 @@ def revert_risk_api_request(language: str, revision_id: int, use_auth: bool, acc
         return response.json()  
     else:
         response.status_code == 400
-        #raise ValueError(f"Unexpected error occurred: {response.status_code}")
-
-    return response.json()
+        raise ValueError(f"Unexpected error occurred: {response.status_code}")
 
 
 language = "viwiki"
 revision_id = 12345
+<<<<<<< HEAD
 response = revert_risk_api_request(language, revision_id, use_auth=False, access_token="", user_agent="")
+=======
+response = revert_risk_api_request(language, revision_id)
+
+>>>>>>> 8997b49 (added test package, removed extra arguments from function)
 print(response)
+
