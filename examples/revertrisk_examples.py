@@ -25,11 +25,10 @@ def revert_risk_api_request(language: str, revision_id: int):
 
 language = "viwiki"
 revision_id = 12345
-<<<<<<< HEAD
-response = revert_risk_api_request(language, revision_id, use_auth=False, access_token="", user_agent="")
-=======
+
 response = revert_risk_api_request(language, revision_id)
 
->>>>>>> 8997b49 (added test package, removed extra arguments from function)
+
 print(response)
+
 
