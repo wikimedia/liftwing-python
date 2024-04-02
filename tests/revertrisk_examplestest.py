@@ -21,5 +21,14 @@ class RevertRisk_ExamplesTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             revert_risk_api_request("en", 12345)
 
+    @patch('examples.revertrisk_examples.requests.post')
+    def test_revert_risk_api_request_empty_response(self, mock_post):
+        mock_post.return_value.status_code = 200
+        mock_post.return_value.json.return_value = {}
+
+        result = revert_risk_api_request("en", 12345)
+
+        self.assertEqual(result, {})
+
 if __name__ == '__main__':
     unittest.main()
