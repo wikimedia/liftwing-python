@@ -1,19 +1,36 @@
-from .base_api_model import BaseAPIModel
-from examples.revertrisk_examples import revert_risk_api_request
-from models.base_api_model import BaseAPIModel
+import requests
+import json
+from liftwing_model import LiftwingModel
 
-class RevertRiskAPIModel(BaseAPIModel):
-    def __init__(self, language, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/"):
+class RevertRiskAPIModel(LiftwingModel):
+    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict"):
         super().__init__(base_url)
         # base url is super because every class that inherits this from the base model will be using it 
-        self.language = language
-        # language is the language that the post request is retrieving 
 
-    def predict_revert_risk(self, revision_id):
-        method="POST"
-        # since we have instances that change we are making a post request
-        endpoint = f"{self.language}-reverted:predict"
-        # figure out how did this get there and be able to exoplain why it ends in -reverted:predict
+    def request_to_revertRiskAPI(self, language: str, revision_id: int):
+        use_auth = False
+        inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict"
+
+        if use_auth:
+            headers = {
+                'Authorization': f'Bearer {self.access_token}',  # Assuming access_token is an attribute of your class
+                'User-Agent': self.user_agent,  # Assuming user_agent is an attribute of your class
+                'Content-type': 'application/json'
+            }
+        else:
+            headers = {}
+
         data = {"rev_id": revision_id}
-        # revID is pretty much the revision id that is needed to complete the post requests 
-        return self.request(endpoint, method, data=data)
+        response = requests.post(inference_url, headers=headers, data=json.dumps(data))
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            response.status_code == 400
+            raise ValueError(f"Unexpected error occurred: {response.status_code}")
+        
+revertRisk = RevertRiskAPIModel()
+
+jsonresponse = revertRisk.request_to_revertRiskAPI(language="en", revision_id=12345)
+
+print(jsonresponse)

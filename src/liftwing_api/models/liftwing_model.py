@@ -1,6 +1,6 @@
 import requests
 
-class BaseAPIModel:
+class LiftwingModel:
     def __init__(self, base_url):
         self.base_url = base_url
         # this base url will be used across every model
