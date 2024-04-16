@@ -7,6 +7,6 @@ def test_revert_risk_example_test_200(self, mock_post):
     mock_post.return_value.status_code = 200
     mock_post.return_value.json.return_value = {'key': 'value'}
     
-    expectedResult = ("en", 12345)
+    expectedResult = ("enwiki", 12345)
     
     self.assertEqual(expectedResult, {'key': 'value'})

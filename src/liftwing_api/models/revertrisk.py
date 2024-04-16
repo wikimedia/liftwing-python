@@ -31,6 +31,6 @@ class RevertRiskAPIModel(LiftwingModel):
         
 revertRisk = RevertRiskAPIModel()
 
-jsonresponse = revertRisk.request_to_revertRiskAPI(language="en", revision_id=12345)
+jsonresponse = revertRisk.request_to_revertRiskAPI(language="viwiki", revision_id=12345)
 
 print(jsonresponse)
