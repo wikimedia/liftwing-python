@@ -11,6 +11,7 @@ class RevertRiskAPIModel(LiftwingModel):
         """
         This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict
         using the language parameter and returns a JSON
+        language is for the different wiki languages, rev_id is the specific revisions
         """
         if language is None or revision_id is None:
             raise ValueError("Both 'language' and 'revision_id' parameters are required.")

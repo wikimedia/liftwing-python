@@ -2,21 +2,22 @@ import requests
 import json
 from liftwing_model import LiftwingModel
 
-class ReadabilityModel(LiftwingModel):
-    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/{language}readability:predict"):
+class RevScoreDamaging(LiftwingModel):
+    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-damaging:predict"):
         super().__init__(base_url)
         # base url is super because every class that inherits this from the base model will be using it 
 
-    def request_to_readabilityAPI(self, language: str, revision_id: int):
+    def request_to_revScoreDamagingAPI(self, revision_id: int):
         """
-        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/readability:predict
-        using the language parameter and returns a JSON
+        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-damaging:predict
+        using the revision id parameter and returns a JSON
+        rev_id is the specific revision
         """
-        if language is None or revision_id is None:
-            raise ValueError("Both 'language' and 'revision_id' parameters are required.")
+        if revision_id is None:
+            raise ValueError("revision_id parameter required.")
     
         use_auth = False
-        inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/{language}readability:predict"
+        inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-damaging:predict"
 
         if use_auth:
             headers = {
@@ -36,8 +37,8 @@ class ReadabilityModel(LiftwingModel):
             response.status_code == 400
             raise ValueError(f"Unexpected error occurred: {response.status_code}")
         
-readability = ReadabilityModel()
+rev = RevScoreDamaging()
 
-jsonresponse = readability.request_to_readabilityAPI("lang": "en", revision_id=123456)
+jsonresponse = rev.request_to_revScoreDamagingAPI(revision_id=12345)
 
 print(jsonresponse)

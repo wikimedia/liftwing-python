@@ -1,10 +1,8 @@
-# Python 3
-
 import json
 import requests
 
 use_auth = False
-inference_url = 'https://api.wikimedia.org/service/lw/inference/v1/models/langid:predict'
+inference_url = 'https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-drafttopic:predict'
 
 if use_auth:
   headers: {
@@ -14,30 +12,30 @@ if use_auth:
   }
 else:
   headers = {}
-data = {"text": "Some sample text in any language that we want to identify"}
+data = {"rev_id": 12345 }
 response = requests.post(inference_url, headers=headers, data=json.dumps(data))
 print(response.json())
 
-import json
 import requests
+import json
 from liftwing_model import LiftwingModel
 
-class LangId(LiftwingModel):
-
-    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict"):
+class DraftTopicModel(LiftwingModel):
+    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/{language}-drafttopic:predict"):
         super().__init__(base_url)
-        # The base URL is inherited from the parent class, which is used for making requests to the inference API.
+        # base url is super because every class that inherits this from the base model will be using it 
 
-    def request_to_langIDAPI(self, language: str, revision_id: int):
+    def request_to_draftTopicAPI(self, revision_id: int):
         """
-        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/{language}-goodfaith:predict
+        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-drafttopic:predict
         using the language parameter and returns a JSON
+        language is for the different wiki languages, rev_id is the specific revisions
         """
-        if language is None or revision_id is None:
-            raise ValueError("Both 'language' and 'revision_id' parameters are required.")
-
+        if revision_id is None:
+            raise ValueError("'revision_id' parameter required.")
+    
         use_auth = False
-        inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/{language}-goodfaith:predict"
+        inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-drafttopic:predict"
 
         if use_auth:
             headers = {
@@ -56,9 +54,9 @@ class LangId(LiftwingModel):
         else:
             response.status_code == 400
             raise ValueError(f"Unexpected error occurred: {response.status_code}")
-            
-lang = LangId()
+        
+draftTopic = DraftTopicModel()
 
-jsonresponse = lang.request_to_langIDAPI(language="arwiki", revision_id=12345)
+jsonresponse = draftTopic.request_to_draftTopicAPI(revision_id=12345)
 
 print(jsonresponse)

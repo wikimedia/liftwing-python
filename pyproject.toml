@@ -1,12 +1,16 @@
-[tool.poetry]
+[project]
 name = "liftwing-python"
 version = "0.1.0"
+authors = [
+    {name = "Mercelis Vaughan", email = "mercelisvaughan@gmail.com"},
+]
 description = "Users will be able to retrieve JSON responses from their respective wiki APIs"
-
-[tool.poetry.dependencies]
-python = "^3.10 || ^3.11 || ^3.12"
-requests = "^2.0"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "requests",
+]
+dynamic = ["version"]
