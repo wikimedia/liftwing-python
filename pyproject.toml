@@ -6,11 +6,10 @@ authors = [
 ]
 description = "Users will be able to retrieve JSON responses from their respective wiki APIs"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
     "requests",
 ]
-dynamic = ["version"]
