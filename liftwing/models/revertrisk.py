@@ -1,6 +1,7 @@
 import requests
-from liftwing_api.models.liftwing_model import LiftwingModel
+from .liftwing_model import LiftwingModel
 from typing import Any, Dict
+
 
 class RevertRiskAPIModel(LiftwingModel):
     def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict"):
