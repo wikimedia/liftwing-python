@@ -6,7 +6,6 @@ from typing import Dict
 class RevertRiskAPIModel(LiftwingModel):
     def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict"):
         super().__init__(base_url)
-        # base url is super because every class that inherits this from the base model will be using it 
 
     def request(self, payload: Dict[str, int], method: str = "POST", headers: Dict[str, str] = None) -> Dict[str, int]:
         """
@@ -23,7 +22,6 @@ class RevertRiskAPIModel(LiftwingModel):
 
         if headers is None:
             headers = {}
-        headers['Content-Type'] = 'application/json'
 
         response = requests.post(self.base_url, json=payload, headers=headers)
 
@@ -32,8 +30,3 @@ class RevertRiskAPIModel(LiftwingModel):
         else:
             response.status_code == 400
             raise ValueError(f"Unexpected error occurred: {response.status_code}")
-        
-rev = RevertRiskAPIModel()
-payload = {"rev_id": 123456, "lang": "en"}
-response = rev.request(payload)
-print(response)
