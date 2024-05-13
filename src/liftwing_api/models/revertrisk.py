@@ -15,10 +15,10 @@ class RevertRiskAPIModel(LiftwingModel):
         """
         language = payload.get("lang")
         if language is None:
-            raise ValueError("'language' parameter is required in the payload.")
+            raise ValueError("'lang' parameter is required in the payload.")
         rev_id = payload.get("rev_id")
         if rev_id is None:
-            raise ValueError("revision id is none, add revision id to continue")
+            raise ValueError("rev id is none, add revision id to continue")
 
         if headers is None:
             headers = {}
@@ -30,3 +30,4 @@ class RevertRiskAPIModel(LiftwingModel):
         else:
             response.status_code == 400
             raise ValueError(f"Unexpected error occurred: {response.status_code}")
+
