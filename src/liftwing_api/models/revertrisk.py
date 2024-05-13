@@ -1,35 +1,33 @@
 import requests
 import json
-from liftwing_model import LiftwingModel
+from liftwing_api.models.liftwing_model import LiftwingModel
+from typing import Dict
 
 class RevertRiskAPIModel(LiftwingModel):
-    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict"):
+    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-{language}-agnostic:predict"):
         super().__init__(base_url)
         # base url is super because every class that inherits this from the base model will be using it 
 
-    def request_to_revertRiskAPI(self, language: str, revision_id: int):
+    def request(self, payload: Dict[str, int], method: str = "POST", headers: Dict[str, str] = None) -> Dict[str, int]:
         """
-        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict
+        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict
         using the language parameter and returns a JSON
         language is for the different wiki languages, rev_id is the specific revisions
         """
-        if language is None or revision_id is None:
-            raise ValueError("Both 'language' and 'revision_id' parameters are required.")
-    
-        use_auth = False
-        inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/{language}-reverted:predict"
+        language = payload.get("language")
+        if language is None:
+            raise ValueError("'language' parameter is required in the payload.")
+        rev_id = payload.get("revision_id")
+        if rev_id is None:
+            raise ValueError("revision id is none, add revision id to continue")
+        
+        url = self.base_url.format(language=language)
 
-        if use_auth:
-            headers = {
-                'Authorization': f'Bearer {self.access_token}',  # Assuming access_token is an attribute of class
-                'User-Agent': self.user_agent,  # Assuming user_agent is an attribute of class
-                'Content-type': 'application/json'
-            }
-        else:
+        if headers is None:
             headers = {}
+        headers['Content-Type'] = 'application/json'
 
-        data = {"rev_id": revision_id}
-        response = requests.post(inference_url, headers=headers, data=json.dumps(data))
+        response = requests.post(url, json=payload, headers=headers)
 
         if response.status_code == 200:
             return response.json()
@@ -37,8 +35,7 @@ class RevertRiskAPIModel(LiftwingModel):
             response.status_code == 400
             raise ValueError(f"Unexpected error occurred: {response.status_code}")
         
-revertRisk = RevertRiskAPIModel()
 
-jsonresponse = revertRisk.request_to_revertRiskAPI(language="viwiki", revision_id=12345)
-
-print(jsonresponse)
+rev = RevertRiskAPIModel()
+payload_without_language = {"revision_id": 123456}
+result = rev.request(payload_without_language)
