@@ -4,7 +4,7 @@ from liftwing_api.models.liftwing_model import LiftwingModel
 from typing import Dict
 
 class RevertRiskAPIModel(LiftwingModel):
-    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-{language}-agnostic:predict"):
+    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict"):
         super().__init__(base_url)
         # base url is super because every class that inherits this from the base model will be using it 
 
@@ -14,20 +14,18 @@ class RevertRiskAPIModel(LiftwingModel):
         using the language parameter and returns a JSON
         language is for the different wiki languages, rev_id is the specific revisions
         """
-        language = payload.get("language")
+        language = payload.get("lang")
         if language is None:
             raise ValueError("'language' parameter is required in the payload.")
-        rev_id = payload.get("revision_id")
+        rev_id = payload.get("rev_id")
         if rev_id is None:
             raise ValueError("revision id is none, add revision id to continue")
-        
-        url = self.base_url.format(language=language)
 
         if headers is None:
             headers = {}
         headers['Content-Type'] = 'application/json'
 
-        response = requests.post(url, json=payload, headers=headers)
+        response = requests.post(self.base_url, json=payload, headers=headers)
 
         if response.status_code == 200:
             return response.json()
@@ -35,7 +33,7 @@ class RevertRiskAPIModel(LiftwingModel):
             response.status_code == 400
             raise ValueError(f"Unexpected error occurred: {response.status_code}")
         
-
 rev = RevertRiskAPIModel()
-payload_without_language = {"revision_id": 123456}
-result = rev.request(payload_without_language)
+payload = {"rev_id": 123456, "lang": "en"}
+response = rev.request(payload)
+print(response)
