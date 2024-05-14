@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = [
     {name = "Mercelis Vaughan", email = "mercelisvaughan@gmail.com"},
 ]
-description = "Users will be able to retrieve JSON responses from their respective wiki APIs"
+description = "A python client to interact with machine learning microservices hosted on Lift Wing"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
