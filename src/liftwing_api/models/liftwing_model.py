@@ -1,14 +1,15 @@
 from typing import Dict
 from abc import abstractmethod
+from abc import ABC
 
-class LiftwingModel:
+class LiftwingModel(ABC):
     def __init__(self, base_url):
         self.base_url = base_url
 
     @abstractmethod
     def request(self, payload: Dict[str, int], method: str = "POST", headers: Dict[str, str] = None) -> Dict[str, int]:
         """
-        Make a request to the API endpoint.
+        This is an abstact method that makes a request to the API endpoint.
 
         Args:
         - payload (Dict[str, Any]): The payload to send with the request.
