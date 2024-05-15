@@ -1,10 +1,10 @@
 [project]
-name = "liftwing-python"
-version = "0.1.0"
+name = "liftwing"
+version = "0.0.4"
 authors = [
     {name = "Mercelis Vaughan", email = "mercelisvaughan@gmail.com"},
 ]
-description = "A python client to interact with machine learning microservices hosted on Lift Wing"
+description = "A python client to interact with Machine Learning microservices hosted on Lift Wing"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
