@@ -1,3 +1,4 @@
+import requests
 from typing import Any, Dict
 from abc import ABC, abstractmethod
 
@@ -19,4 +20,9 @@ class LiftwingModel(ABC):
         Returns:
         - Dict[str, Any]: The JSON response from the API.
         """
-        pass
+        if headers is None:
+            headers = {}
+
+        response = requests.post(self.base_url, json=payload, headers=headers)
+
+        return response.json()
