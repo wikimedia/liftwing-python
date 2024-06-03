@@ -8,15 +8,11 @@ class RevertRiskPayload(BaseModel):
     lang: str = Field(...,
                       title="Language code of the wiki",
                       description='A string representing the language code related to the target '
-                                  'wiki. Example: "en" for English Wikipedia.')
+                                  'wiki. Example: "en" for English Wikipedia.',)
     rev_id: int = Field(...,
                         title="Revision ID of the edit",
-                        description="The revision id for the wiki identified by the lang parameter.")
-
-    @model_validator(mode='before')
-    def check_fields(cls, values):
-        check_required_fields(values, ['lang', 'rev_id'])
-        return values
+                        description="The revision id for the wiki identified by the lang parameter.",
+                        gt=0)
 
 
 class RevertRiskAPIModel(LiftwingModel):

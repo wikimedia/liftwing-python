@@ -15,10 +15,3 @@ def validate_payload(model: BaseModel):
             return func(*args, **kwargs)
         return wrapper
     return decorator
-
-
-def check_required_fields(values: dict, required_fields: list):
-    for field_name in required_fields:
-        if field_name not in values or not values[field_name]:
-            raise ValueError(f"'{field_name}' parameter is required in the payload.")
-    return values
