@@ -1,7 +1,6 @@
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field
+
 from .liftwing_model import LiftwingModel
-from ..utils.validator import validate_payload, check_required_fields
-from typing import Any, Dict
 
 
 class RevertRiskPayload(BaseModel):
@@ -17,9 +16,4 @@ class RevertRiskPayload(BaseModel):
 
 class RevertRiskAPIModel(LiftwingModel):
     def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict"):
-        super().__init__(base_url)
-
-    @validate_payload(RevertRiskPayload)
-    def request(self, payload:  Dict[str, Any], method: str = "POST",
-                headers: Dict[str, str] = None) -> Dict[str, Any]:
-        return super().request(payload=payload, method=method, headers=headers)
+        super().__init__(base_url, RevertRiskPayload)

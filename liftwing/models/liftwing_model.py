@@ -1,13 +1,15 @@
+from abc import ABC
+from typing import Any, Dict, Type
+
 import requests
-from typing import Any, Dict
-from abc import ABC, abstractmethod
+from pydantic import BaseModel
 
 
 class LiftwingModel(ABC):
-    def __init__(self, base_url):
+    def __init__(self, base_url: str, payload_model: Type[BaseModel]):
         self.base_url = base_url
+        self.payload_model = payload_model
 
-    @abstractmethod
     def request(self, payload: Dict[str, Any], method: str = "POST", headers: Dict[str, str] = None) -> Dict[str, Any]:
         """
         This is an abstact method that makes a request to the API endpoint.
@@ -20,6 +22,8 @@ class LiftwingModel(ABC):
         Returns:
         - Dict[str, Any]: The JSON response from the API.
         """
+        _ = self.payload_model(**payload)
+
         if headers is None:
             headers = {}
 
