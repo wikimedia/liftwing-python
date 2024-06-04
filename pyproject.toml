@@ -3,6 +3,7 @@ name = "liftwing"
 version = "0.0.5"
 authors = [
     {name = "Mercelis Vaughan", email = "mercelisvaughan@gmail.com"},
+    {name = "WMF Machine Learning Team", email = "ml@wikimedia.org"}
 ]
 description = "A python client to interact with Machine Learning microservices hosted on Lift Wing"
 readme = "README.md"
