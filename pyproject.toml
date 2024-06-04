@@ -1,6 +1,6 @@
 [project]
 name = "liftwing"
-version = "0.0.4"
+version = "0.0.5"
 authors = [
     {name = "Mercelis Vaughan", email = "mercelisvaughan@gmail.com"},
 ]
@@ -12,4 +12,5 @@ classifiers = [
 ]
 dependencies = [
     "requests",
+    "pydantic~=2.7"
 ]
