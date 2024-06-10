@@ -3,13 +3,13 @@ from .liftwing_model import LiftwingModel
 from typing import Any, Dict
 
 
-class RevertRiskAPIModel(LiftwingModel):
-    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict"):
+class ReadabilityAPIModel(LiftwingModel):
+    def __init__(self, base_url="https://api.wikimedia.org/service/lw/inference/v1/models/readability:predict"):
         super().__init__(base_url)
 
     def request(self, payload: Dict[str, Any], method: str = "POST", headers: Dict[str, str] = None) -> Dict[str, Any]:
         """
-        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict
+        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/readability:predict
         using the language parameter and returns a JSON
         language is for the different wiki languages, rev_id is the specific revisions
         """
@@ -24,5 +24,4 @@ class RevertRiskAPIModel(LiftwingModel):
             headers = {}
 
         response = requests.post(self.base_url, json=payload, headers=headers)
-
         return response.json()

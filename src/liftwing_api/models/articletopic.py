@@ -1,6 +1,7 @@
 import json
 import requests
-from liftwing_model import LiftwingModel
+from liftwing_api.models.liftwing_model import LiftwingModel
+from typing import Any, Dict
 
 class ArticleTopic(LiftwingModel):
 
@@ -8,32 +9,22 @@ class ArticleTopic(LiftwingModel):
         super().__init__(base_url)
         # base url is super because every class that inherits this from the base model will be using it 
 
-    def request_to_articleTopicAPI(self, language: str, revision_id: int):
+    def request(self, method: str = "POST", headers: Dict[str, str] = None) -> Dict[str, Any]:
         """
-        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/outlink-topic-model:predict
-        using the language parameter and returns a JSON
+        This function makes a POST request to https://api.wikimedia.org/service/lw/inference/v1/models/langid:predict
+        using the language parameter and returns a JSON. 
+        The language parameter is for the different wiki languages, and rev_id is for specific revisions.
         """
-        if language is None or revision_id is None:
-            raise ValueError("Both 'language' and 'revision_id' parameters are required.")
+        url = "https://api.wikimedia.org/service/lw/inference/v1/models/langid:predict"
 
-        use_auth = False
-        inference_url = f"https://api.wikimedia.org/service/lw/inference/v1/models/outlink-topic-model:predict"
-
-        if use_auth:
-            headers: {
-                'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
-                'User-Agent': 'YOUR_APP_NAME (YOUR_EMAIL_OR_CONTACT_PAGE)',
-                'Content-type': 'application/json'
-            }
-        else:
+        if headers is None:
             headers = {}
-        data = {"page_title": "Douglas_Adams", "lang": "en"}
-        response = requests.post(inference_url, headers=headers, data=json.dumps(data))
 
+        data = {"text": "Some sample text in any language that we want to identify"}
+        
+        response = requests.post(url, headers=headers, data=json.dumps(data))
 
         if response.status_code == 200:
             return response.json()
         else:
-            response.status_code == 400
             raise ValueError(f"Unexpected error occurred: {response.status_code}")
-            
