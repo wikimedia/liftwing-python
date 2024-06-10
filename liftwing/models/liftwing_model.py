@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 class LiftwingModel(ABC):
-    def __init__(self, base_url: str, payload_model: Type[BaseModel]):
+    def __init__(self, base_url: str, payload_model: Type[BaseModel] = None):
         self.base_url = base_url
         self.payload_model = payload_model
 
@@ -22,7 +22,8 @@ class LiftwingModel(ABC):
         Returns:
         - Dict[str, Any]: The JSON response from the API.
         """
-        _ = self.payload_model(**payload)
+        if self.payload_model:
+            _ = self.payload_model(**payload)
 
         if headers is None:
             headers = {}
