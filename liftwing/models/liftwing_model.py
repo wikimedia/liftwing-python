@@ -30,3 +30,20 @@ class LiftwingModel(ABC):
         response = requests.post(self.base_url, json=payload, headers=headers)
 
         return response.json()
+
+
+class ModelMetadata(BaseModel):
+    name: str
+    classname: str
+    api_documentation_url: str
+    wmf_model_card_url: str
+
+    def __repr__(self):
+        return (
+            f"(\n"
+            f"    name={self.name},\n"
+            f"    classname={self.classname},\n"
+            f"    api_documentation_url={self.api_documentation_url},\n"
+            f"    wmf_model_card_url={self.wmf_model_card_url}\n"
+            f")"
+        )
