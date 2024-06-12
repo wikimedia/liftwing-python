@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 class LiftwingModel(ABC):
-    def __init__(self, base_url: str, payload_model: Type[BaseModel] = None):
+    def __init__(self, base_url: str = None, payload_model: Type[BaseModel] = None):
         self.base_url = base_url
         self.payload_model = payload_model
 
