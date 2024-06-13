@@ -5,7 +5,6 @@ from pydantic import BaseModel, Field
 
 from .liftwing_model import LiftwingModel
 
-
 class RevertRiskMultilingualPayload(BaseModel):
     lang: str = Field(
         ...,
@@ -48,7 +47,6 @@ class RevertRiskMultilingualModel(LiftwingModel):
         if headers is None:
             headers = {}
 
-        response = requests.post(self.base_url, json=payload, headers=headers)
+        response = requests.post(self.b, json=payload, headers=headers)
 
         return response.json()
-
