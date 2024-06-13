@@ -10,9 +10,14 @@ class LiftwingModel(ABC):
         self.base_url = base_url
         self.payload_model = payload_model
 
-    def request(self, payload: Dict[str, Any], method: str = "POST", headers: Dict[str, str] = None) -> Dict[str, Any]:
+    def request(
+        self,
+        payload: Dict[str, Any],
+        method: str = "POST",
+        headers: Dict[str, str] = None,
+    ) -> Dict[str, Any]:
         """
-        This is an abstact method that makes a request to the API endpoint.
+        This is function that makes a request to the API endpoint.
 
         Args:
         - payload (Dict[str, Any]): The payload to send with the request.
