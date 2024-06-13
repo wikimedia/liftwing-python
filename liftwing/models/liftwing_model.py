@@ -17,7 +17,7 @@ class LiftwingModel(ABC):
         headers: Dict[str, str] = None,
     ) -> Dict[str, Any]:
         """
-        This is an abstact method that makes a request to the API endpoint.
+        This is function that makes a request to the API endpoint.
 
         Args:
         - payload (Dict[str, Any]): The payload to send with the request.
