@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 
-from .liftwing_model import LiftwingModel, ModelMetadata
+#
+from liftwing.models.liftwing_model import LiftwingModel, ModelMetadata
 
 
 class RevertRiskPayload(BaseModel):

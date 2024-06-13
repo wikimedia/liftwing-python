@@ -1,28 +1,42 @@
-# liftwing Python Package
-## Make request to machine learning models hosted on [Lift Wing](https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing) - the Wikimedia Foundation's ML model serving platform
+# LiftWing Python Module
+## _Make request to machine learning models_
 
+[![Build Status]
 
-The LiftWing python module works as a client man for developers making API requests. With this package developers will be able to import their desired API and make requests to it.
+The LiftWing python module works as a middle man for developers making API requests. With this module developers will be able to import their desired API and make requests to it 
+
+## Features
+
+- Users can pip install liftwing
+- Make requests to ML models
+- Automatic publishing to PyPI with Github ActionsF
 
 ## Installation
 
-Install the python package named `liftwing` using pip:
+Install the dependencies for liftwing.
 
 ```sh
-pip install liftwing
+cd project
+```
+```sh
+pip3 install -i https://test.pypi.org/simple/ liftwing
 ```
 
-After installing the package you can list the available models
+Second Tab:
+Now Liftwing should be in your project
+
+(optional):
 
 ```sh
-python -m liftwing
+pip -list liftwing
 ```
 
-#### Using the package
+#### Making a request in .py file
 
-We can make requests to a model server:
+Open new .py file
+
 ```sh
-from liftwing import RevertRiskAPIModel
+from liftwing.models import RevertRiskAPIModel
 
 client = RevertRiskAPIModel()
 result = client.request(payload={"lang": "en", "rev_id": "123456"})
