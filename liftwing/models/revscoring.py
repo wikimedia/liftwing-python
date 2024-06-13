@@ -13,6 +13,10 @@ class RevscoringPayload(BaseModel):
         description="The revision id for the wiki",
         gt=0,
     )
+    extended_output: bool = Field(
+        title="Extended Output - return features",
+        description="Whether or not the response should include the extended output of the model (like the list of features used etc..). Either true or false. Default: false",
+    )
 
 
 damaging_metadata = ModelMetadata(
