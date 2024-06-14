@@ -1,27 +1,18 @@
-# LiftWing Python Package
-## Make request to machine learning models_
+# liftwing Python Package
+## Make request to machine learning models hosted on [Lift Wing](https://wikitech.wikimedia.org/wiki/Machine_Learning/LiftWing) - the Wikimedia Foundation's ML model serving platform
 
 
-The LiftWing python module works as a middle man for developers making API requests. With this module developers will be able to import their desired API and make requests to it
-
-## Features
-
-- Users can pip install liftwing
-- Make requests to ML models
-- Automatic publishing to PyPI with Github ActionsF
+The LiftWing python module works as a client man for developers making API requests. With this package developers will be able to import their desired API and make requests to it.
 
 ## Installation
 
-Install the dependencies for liftwing.
+Install the python package named `liftwing` using pip:
 
 ```sh
-cd project
-```
-```sh
-pip3 install liftwing
+pip install liftwing
 ```
 
-After installing the package you can list the available modelsL
+After installing the package you can list the available models
 
 ```sh
 python -m liftwing
