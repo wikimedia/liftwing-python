@@ -38,5 +38,4 @@ jobs:
       - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          user: scoring-internal
-          password: ${{ secrets.PYPI_PASS }}
+          password: ${{ secrets.PYPI_TOKEN }}
