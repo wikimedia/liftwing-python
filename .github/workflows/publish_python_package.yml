@@ -35,8 +35,8 @@ jobs:
           password: ${{ secrets.PYPI_TEST_TOKEN }}
           repository_url: https://test.pypi.org/legacy/
 
-#      - name: Publish distribution 📦 to PyPI
-#        uses: pypa/gh-action-pypi-publish@release/v1
-#        with:
-#          user: scoring-internal
-#          password: ${{ secrets.PYPI_PASS }}
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: scoring-internal
+          password: ${{ secrets.PYPI_PASS }}
