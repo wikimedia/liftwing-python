@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from .liftwing_model import LiftwingModel
+from .liftwing_model import LiftwingModel, ModelMetadata
 
 
 class ArticleTopicPayload(BaseModel):
@@ -14,8 +14,29 @@ class ArticleTopicPayload(BaseModel):
         description="A string representing the language code related to the target "
         'wiki. Example: "en" for English Wikipedia.',
     )
+    threshold: float = Field(
+        title="Custom threshold for evaluating scores",
+        description="A float representing a custom threshold value to use when evaluating the scores. Default: empty.",
+    )
+    features_str: str = Field(
+        title="Custom features to pass to the model",
+        description="A string representing custom features to pass to the model. Default: empty.",
+    )
+    debug: bool = Field(
+        title="Debug Output - return all scores",
+        description="A boolean indicating whether or not to enable debug output to return all predicted topics and scores, equivalent to setting the threshold to 0. Default: false.",
+    )
 
-class ArticleTopicAPIModel(LiftwingModel):
+
+outlink_articletopic_metadata = ModelMetadata(
+    name="Language agnostic link-based article topic",
+    classname="ArticleTopicModel",
+    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_articletopic_outlink_prediction",
+    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Language_agnostic_link-based_article_topic",
+)
+
+
+class ArticleTopicModel(LiftwingModel):
     def __init__(
         self,
         base_url="https://api.wikimedia.org/service/lw/inference/v1/models/outlink-topic-model:predict",
