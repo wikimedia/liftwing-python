@@ -1,4 +1,4 @@
-from .models.language_id import LanguageIdAPIModel
+from .models.language_id import LanguageIdModel, langid_metadata
 from .models.revertrisk import RevertRiskAPIModel, revertrisk_metadata
 from .models.revscoring import (
     RevscoringModel,
@@ -20,5 +20,6 @@ __metadata__ = [
     articletopic_metadata,
     draftquality_metadata,
     drafttopic_metadata,
+    langid_metadata,
 ]
-__all__ = [RevertRiskAPIModel, RevscoringModel, LanguageIdAPIModel]
+__all__ = [LanguageIdModel, RevertRiskAPIModel, RevscoringModel, RevertRiskAPIModel]
