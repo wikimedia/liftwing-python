@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from .liftwing_model import LiftwingModel
+from .liftwing_model import LiftwingModel, ModelMetadata
 
 
 class RevertRiskMultilingualPayload(BaseModel):
@@ -16,6 +16,14 @@ class RevertRiskMultilingualPayload(BaseModel):
         description="The revision id for the wiki",
         gt=0,
     )
+
+
+revertrisk_multilingual_metadata = ModelMetadata(
+    name="Multilingual revert risk",
+    classname="RevertRiskMultilingualModel",
+    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_reverted_risk_multilingual_prediction",
+    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Proposed/Multilingual_revert_risk",
+)
 
 
 class RevertRiskMultilingualModel(LiftwingModel):
