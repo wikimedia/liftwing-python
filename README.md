@@ -3,7 +3,7 @@
 
 [![Build Status]
 
-The LiftWing python module works as a middle man for developers making API requests. With this module developers will be able to import their desired API and make requests to it 
+The LiftWing python module works as a middle man for developers making API requests. With this module developers will be able to import their desired API and make requests to it
 
 ## Features
 
