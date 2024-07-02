@@ -1,3 +1,4 @@
+from .models.article_topic import ArticleTopicModel, outlink_articletopic_metadata
 from .models.revertrisk import RevertRiskAPIModel, revertrisk_metadata
 from .models.revscoring import (
     RevscoringModel,
@@ -19,5 +20,6 @@ __metadata__ = [
     articletopic_metadata,
     draftquality_metadata,
     drafttopic_metadata,
+    outlink_articletopic_metadata,
 ]
-__all__ = [RevertRiskAPIModel, RevscoringModel]
+__all__ = [RevertRiskAPIModel, RevscoringModel, ArticleTopicModel]
