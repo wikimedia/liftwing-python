@@ -1,3 +1,4 @@
+from .models.language_id import LanguageIdModel, langid_metadata
 from .models.readability import ReadabilityModel, readability_metadata
 from .models.revertrisk import RevertRiskAPIModel, revertrisk_metadata
 
@@ -22,5 +23,6 @@ __metadata__ = [
     articletopic_metadata,
     draftquality_metadata,
     drafttopic_metadata,
+    langid_metadata,
 ]
-__all__ = [ReadabilityModel, RevertRiskAPIModel, RevscoringModel]
+__all__ = [LanguageIdModel, ReadabilityModel, RevertRiskAPIModel, RevscoringModel]
