@@ -1,3 +1,4 @@
+from .models.article_topic import ArticleTopicModel, outlink_articletopic_metadata
 from .models.language_id import LanguageIdModel, langid_metadata
 from .models.readability import ReadabilityModel, readability_metadata
 from .models.revertrisk import RevertRiskAPIModel, revertrisk_metadata
@@ -24,12 +25,14 @@ __metadata__ = [
     drafttopic_metadata,
     goodfaith_metadata,
     langid_metadata,
+    outlink_articletopic_metadata,
     readability_metadata,
     reverted_metadata,
     revertrisk_metadata,
     revertrisk_multilingual_metadata,
 ]
 __all__ = [
+    ArticleTopicModel,
     LanguageIdModel,
     ReadabilityModel,
     RevertRiskAPIModel,
