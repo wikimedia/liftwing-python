@@ -1,4 +1,7 @@
+from typing import Optional
+
 from pydantic import BaseModel, Field
+
 from .liftwing_model import LiftwingModel, ModelMetadata
 
 
@@ -14,15 +17,18 @@ class ArticleTopicPayload(BaseModel):
         description="A string representing the language code related to the target "
         'wiki. Example: "en" for English Wikipedia.',
     )
-    threshold: float = Field(
+    threshold: Optional[float] = Field(
+        default=None,
         title="Custom threshold for evaluating scores",
         description="A float representing a custom threshold value to use when evaluating the scores. Default: empty.",
     )
-    features_str: str = Field(
+    features_str: Optional[str] = Field(
+        default="",
         title="Custom features to pass to the model",
         description="A string representing custom features to pass to the model. Default: empty.",
     )
-    debug: bool = Field(
+    debug: Optional[bool] = Field(
+        default=False,
         title="Debug Output - return all scores",
         description="A boolean indicating whether or not to enable debug output to return all predicted topics and scores, equivalent to setting the threshold to 0. Default: false.",
     )
