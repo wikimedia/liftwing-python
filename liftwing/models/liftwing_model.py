@@ -10,6 +10,14 @@ from pydantic import BaseModel, TypeAdapter
 DEFAULT_TIMEOUT = 60.0
 
 
+# The Lift Wing API reference on Wikitech. Append "#/<tag>/<operationId>" to
+# link to one endpoint.
+API_REFERENCE_URL = (
+    "https://wikitech.wikimedia.org/w/index.php"
+    "?title=Special:RestSandbox&api=lift-wing/v1"
+)
+
+
 def _library_user_agent() -> str:
     """Return the User-Agent part that identifies this library."""
     try:

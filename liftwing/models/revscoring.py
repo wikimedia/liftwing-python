@@ -2,7 +2,12 @@ from typing import Literal, get_args
 
 from pydantic import BaseModel, Field
 
-from .liftwing_model import LiftwingModel, ModelMetadata
+from .liftwing_model import API_REFERENCE_URL, LiftwingModel, ModelMetadata
+
+REVSCORING_API_REFERENCE_URL = f"{API_REFERENCE_URL}#/Revscoring%20(formerly%20ORES)"
+REVSCORING_MODEL_CARD_URL = (
+    "https://meta.wikimedia.org/wiki/Machine_learning_models#Revscoring_models"
+)
 
 RevscoringModelType = Literal[
     "articlequality",
@@ -34,53 +39,53 @@ class RevscoringPayload(BaseModel):
 damaging_metadata = ModelMetadata(
     name="Revscoring Edit quality damaging model",
     classname="RevscoringModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_revscoring_damaging_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/damagingPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
 goodfaith_metadata = ModelMetadata(
     name="Revscoring Edit quality goodfaith model",
     classname="RevscoringModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_revscoring_goodfaith_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/goodfaithPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
 
 reverted_metadata = ModelMetadata(
     name="Revscoring Edit quality reverted model",
     classname="RevscoringModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_revscoring_reverted_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/revertPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
 
 articlequality_metadata = ModelMetadata(
     name="Revscoring Article Quality model",
     classname="RevscoringModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_revscoring_articlequality_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/articleQualityPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
 
 articletopic_metadata = ModelMetadata(
     name="Revscoring Article Topic model",
     classname="RevscoringModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_revscoring_articletopic_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/articleTopicPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
 draftquality_metadata = ModelMetadata(
     name="Revscoring Draft Quality model",
     classname="RevscoringModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_revscoring_draftquality_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/draftQualityPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
 drafttopic_metadata = ModelMetadata(
     name="Revscoring Draft Topic model",
     classname="RevscoringModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_revscoring_drafttopic_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/draftTopicPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
 

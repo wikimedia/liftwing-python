@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from .liftwing_model import LiftwingModel, ModelMetadata
+from .liftwing_model import API_REFERENCE_URL, LiftwingModel, ModelMetadata
 
 
 class LanguageIdPayload(BaseModel):
@@ -14,8 +14,8 @@ class LanguageIdPayload(BaseModel):
 langid_metadata = ModelMetadata(
     name="Language Identification",
     classname="LanguageIdModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_language_identification_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Proposed/Language_Identification",
+    api_documentation_url=f"{API_REFERENCE_URL}#/Countries%2C%20language%2C%20and%20translation/langidPredict",
+    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Language_Identification",
 )
 
 
