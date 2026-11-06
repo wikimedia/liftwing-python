@@ -7,6 +7,12 @@ from .models.revertrisk_multilingual import (
     RevertRiskMultilingualModel,
     revertrisk_multilingual_metadata,
 )
+from .models.revertrisk_pre_save import (
+    RevertRiskMultilingualPreSaveModel,
+    RevertRiskPreSaveModel,
+    revertrisk_multilingual_pre_save_metadata,
+    revertrisk_pre_save_metadata,
+)
 from .models.revertrisk_wikidata import (
     RevertRiskWikidataModel,
     revertrisk_wikidata_metadata,
@@ -35,6 +41,8 @@ __metadata__ = [
     reverted_metadata,
     revertrisk_metadata,
     revertrisk_multilingual_metadata,
+    revertrisk_multilingual_pre_save_metadata,
+    revertrisk_pre_save_metadata,
     revertrisk_wikidata_metadata,
 ]
 __all__ = [
@@ -44,6 +52,8 @@ __all__ = [
     "ReadabilityModel",
     "RevertRiskAPIModel",
     "RevertRiskMultilingualModel",
+    "RevertRiskMultilingualPreSaveModel",
+    "RevertRiskPreSaveModel",
     "RevertRiskWikidataModel",
     "RevscoringModel",
 ]
