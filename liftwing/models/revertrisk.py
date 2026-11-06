@@ -30,5 +30,6 @@ class RevertRiskAPIModel(LiftwingModel):
     def __init__(
         self,
         base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict",
+        **kwargs,
     ):
-        super().__init__(base_url, RevertRiskPayload)
+        super().__init__(base_url, RevertRiskPayload, **kwargs)

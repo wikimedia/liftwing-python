@@ -4,11 +4,38 @@ from typing import Any, Dict, Type
 import requests
 from pydantic import BaseModel
 
+# The API gateway stops a request after 30 seconds. This default is longer,
+# so that the client gets the error response from the gateway.
+DEFAULT_TIMEOUT = 60.0
+
+
+class LiftWingError(Exception):
+    """The Lift Wing API returns an HTTP error status.
+
+    Attributes:
+    - status_code (int): The HTTP status code.
+    - body (Any): The response body. It is JSON data if possible, else text.
+    - url (str): The URL of the request.
+    """
+
+    def __init__(self, status_code: int, body: Any, url: str):
+        self.status_code = status_code
+        self.body = body
+        self.url = url
+        super().__init__(f"HTTP {status_code} from {url}: {body}")
+
 
 class LiftwingModel(ABC):
-    def __init__(self, base_url: str = None, payload_model: Type[BaseModel] = None):
+    def __init__(
+        self,
+        base_url: str = None,
+        payload_model: Type[BaseModel] = None,
+        *,
+        timeout: float = DEFAULT_TIMEOUT,
+    ):
         self.base_url = base_url
         self.payload_model = payload_model
+        self.timeout = timeout
 
     def request(
         self,
@@ -26,6 +53,10 @@ class LiftwingModel(ABC):
 
         Returns:
         - Dict[str, Any]: The JSON response from the API.
+
+        Raises:
+        - LiftWingError: The API returns an HTTP error status.
+        - requests.Timeout: The API does not respond before the timeout.
         """
         if self.payload_model:
             _ = self.payload_model(**payload)
@@ -33,9 +64,23 @@ class LiftwingModel(ABC):
         if headers is None:
             headers = {}
 
-        response = requests.post(self.base_url, json=payload, headers=headers)
+        response = requests.post(
+            self.base_url, json=payload, headers=headers, timeout=self.timeout
+        )
+        if not response.ok:
+            raise LiftWingError(
+                response.status_code, _response_body(response), self.base_url
+            )
 
         return response.json()
+
+
+def _response_body(response: requests.Response) -> Any:
+    """Return the response body as JSON data, or as text if it is not JSON."""
+    try:
+        return response.json()
+    except ValueError:
+        return response.text
 
 
 class ModelMetadata(BaseModel):

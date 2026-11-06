@@ -23,5 +23,6 @@ class LanguageIdModel(LiftwingModel):
     def __init__(
         self,
         base_url="https://api.wikimedia.org/service/lw/inference/v1/models/langid:predict",
+        **kwargs,
     ):
-        super().__init__(base_url, LanguageIdPayload)
+        super().__init__(base_url, LanguageIdPayload, **kwargs)

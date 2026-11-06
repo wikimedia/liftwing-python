@@ -30,5 +30,6 @@ class RevertRiskMultilingualModel(LiftwingModel):
     def __init__(
         self,
         base_url: str = "https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-multilingual:predict",
+        **kwargs,
     ):
-        super().__init__(base_url, RevertRiskMultilingualPayload)
+        super().__init__(base_url, RevertRiskMultilingualPayload, **kwargs)

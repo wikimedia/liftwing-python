@@ -30,5 +30,6 @@ class ReadabilityModel(LiftwingModel):
     def __init__(
         self,
         base_url="https://api.wikimedia.org/service/lw/inference/v1/models/readability:predict",
+        **kwargs,
     ):
-        super().__init__(base_url, ReadabilityPayload)
+        super().__init__(base_url, ReadabilityPayload, **kwargs)
