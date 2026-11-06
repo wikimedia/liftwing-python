@@ -83,7 +83,7 @@ Result:
 The [Wikimedia User-Agent policy](https://meta.wikimedia.org/wiki/User-Agent_policy) requires that clients identify themselves. Give the name of your tool and contact information with the `user_agent` argument. The client adds its own name and version, for example:
 
 ```
-MyTool/1.0 (https://example.org/MyTool; me@example.org) liftwing-python/0.1.1 (https://github.com/wikimedia/liftwing-python)
+MyTool/1.0 (https://example.org/MyTool; me@example.org) liftwing-python/0.2.0 (https://github.com/wikimedia/liftwing-python)
 ```
 
 ### Authenticate
