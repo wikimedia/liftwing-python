@@ -1,6 +1,6 @@
 from abc import ABC
 from importlib.metadata import PackageNotFoundError, version
-from typing import Any, Dict, Optional, Type
+from typing import Any, Dict, Optional
 
 import requests
 from pydantic import BaseModel, TypeAdapter
@@ -59,7 +59,7 @@ class LiftwingModel(ABC):
     def __init__(
         self,
         base_url: str = None,
-        payload_model: Type[BaseModel] = None,
+        payload_model: Any = None,
         *,
         timeout: float = DEFAULT_TIMEOUT,
         user_agent: Optional[str] = None,
