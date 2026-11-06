@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from .liftwing_model import API_REFERENCE_URL, LiftwingModel, ModelMetadata
 
@@ -105,6 +105,37 @@ class TranslationRecommendationPayload(BaseModel):
     )
 
 
+class PageCollectionMembershipPayload(BaseModel):
+    collection: str = Field(
+        ...,
+        title="Name of the page collection",
+    )
+    language: Optional[str] = Field(
+        default=None,
+        title="Language code of the titles",
+        description="Give language and titles, or give qids.",
+    )
+    titles: Optional[str] = Field(
+        default=None,
+        title="Article titles to check",
+        description="Article titles, separated by |. Give language and titles, "
+        "or give qids.",
+    )
+    qids: Optional[str] = Field(
+        default=None,
+        title="Wikidata QIDs to check",
+        description='Wikidata QIDs, separated by |, for example "Q123|Q456". Give '
+        "language and titles, or give qids.",
+    )
+
+    @model_validator(mode="after")
+    def check_titles_or_qids(self) -> "PageCollectionMembershipPayload":
+        has_titles = self.language is not None and self.titles is not None
+        if has_titles == (self.qids is not None):
+            raise ValueError("Give language and titles, or give qids, but not both.")
+        return self
+
+
 translation_recommendation_metadata = ModelMetadata(
     name="Content translation recommendations (articles)",
     classname="TranslationRecommendationModel",
@@ -114,6 +145,24 @@ translation_recommendation_metadata = ModelMetadata(
 section_translation_recommendation_metadata = ModelMetadata(
     name="Content translation recommendations (sections)",
     classname="SectionTranslationRecommendationModel",
+    api_documentation_url=RECOMMENDATION_DOCUMENTATION_URL,
+)
+
+page_collections_metadata = ModelMetadata(
+    name="Content translation page collections",
+    classname="PageCollectionsModel",
+    api_documentation_url=RECOMMENDATION_DOCUMENTATION_URL,
+)
+
+page_collection_groups_metadata = ModelMetadata(
+    name="Content translation page collection groups",
+    classname="PageCollectionGroupsModel",
+    api_documentation_url=RECOMMENDATION_DOCUMENTATION_URL,
+)
+
+page_collection_membership_metadata = ModelMetadata(
+    name="Content translation page collection membership",
+    classname="PageCollectionMembershipModel",
     api_documentation_url=RECOMMENDATION_DOCUMENTATION_URL,
 )
 
@@ -142,3 +191,42 @@ class SectionTranslationRecommendationModel(LiftwingModel):
         **kwargs,
     ):
         super().__init__(base_url, TranslationRecommendationPayload, **kwargs)
+
+
+class PageCollectionsModel(LiftwingModel):
+    """Get the metadata of the page collections. This endpoint has no payload."""
+
+    http_method = "GET"
+
+    def __init__(
+        self,
+        base_url="https://api.wikimedia.org/service/lw/recommendation/api/v1/translation/page-collections",
+        **kwargs,
+    ):
+        super().__init__(base_url, **kwargs)
+
+
+class PageCollectionGroupsModel(LiftwingModel):
+    """Get the page collections in groups. This endpoint has no payload."""
+
+    http_method = "GET"
+
+    def __init__(
+        self,
+        base_url="https://api.wikimedia.org/service/lw/recommendation/api/v1/translation/page-collection-groups",
+        **kwargs,
+    ):
+        super().__init__(base_url, **kwargs)
+
+
+class PageCollectionMembershipModel(LiftwingModel):
+    """Find which articles or Wikidata items are in a page collection."""
+
+    http_method = "GET"
+
+    def __init__(
+        self,
+        base_url="https://api.wikimedia.org/service/lw/recommendation/api/v1/translation/page-collection-membership",
+        **kwargs,
+    ):
+        super().__init__(base_url, PageCollectionMembershipPayload, **kwargs)

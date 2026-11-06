@@ -97,7 +97,7 @@ class LiftwingModel(ABC):
 
     def request(
         self,
-        payload: Dict[str, Any],
+        payload: Optional[Dict[str, Any]] = None,
         method: Optional[str] = None,
         headers: Dict[str, str] = None,
     ) -> Dict[str, Any]:
@@ -106,6 +106,7 @@ class LiftwingModel(ABC):
 
         Args:
         - payload (Dict[str, Any]): The payload to send with the request.
+          Some endpoints do not need a payload.
         - method (str): The HTTP method to use for the request. The default is
           the method of the endpoint, usually "POST". A "GET" request sends the
           payload as query parameters.
@@ -118,7 +119,7 @@ class LiftwingModel(ABC):
         - LiftWingError: The API returns an HTTP error status.
         - requests.Timeout: The API does not respond before the timeout.
         """
-        payload = self._prepare_payload(payload)
+        payload = self._prepare_payload(payload or {})
 
         headers = self._headers(headers)
         method = (method or self.http_method).upper()
