@@ -1,4 +1,6 @@
-from pydantic import BaseModel, Field
+from typing import List, Union
+
+from pydantic import BaseModel, Field, model_validator
 
 from .liftwing_model import LiftwingModel, ModelMetadata
 
@@ -18,6 +20,22 @@ class RevertRiskPayload(BaseModel):
     )
 
 
+class RevertRiskBatchPayload(BaseModel):
+    instances: List[RevertRiskPayload] = Field(
+        ...,
+        title="Revisions to score",
+        description="A list of revisions, all in the same language. The API "
+        "accepts a maximum of 20 revisions in one request.",
+        min_length=1,
+    )
+
+    @model_validator(mode="after")
+    def check_same_language(self) -> "RevertRiskBatchPayload":
+        if len({instance.lang for instance in self.instances}) > 1:
+            raise ValueError("All instances must have the same lang.")
+        return self
+
+
 revertrisk_metadata = ModelMetadata(
     name="Language-agnostic revert risk",
     classname="RevertRiskAPIModel",
@@ -32,4 +50,6 @@ class RevertRiskAPIModel(LiftwingModel):
         base_url="https://api.wikimedia.org/service/lw/inference/v1/models/revertrisk-language-agnostic:predict",
         **kwargs,
     ):
-        super().__init__(base_url, RevertRiskPayload, **kwargs)
+        super().__init__(
+            base_url, Union[RevertRiskPayload, RevertRiskBatchPayload], **kwargs
+        )
