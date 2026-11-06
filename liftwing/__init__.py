@@ -32,10 +32,10 @@ __metadata__ = [
     revertrisk_multilingual_metadata,
 ]
 __all__ = [
-    ArticleTopicModel,
-    LanguageIdModel,
-    ReadabilityModel,
-    RevertRiskAPIModel,
-    RevertRiskMultilingualModel,
-    RevscoringModel,
+    "ArticleTopicModel",
+    "LanguageIdModel",
+    "ReadabilityModel",
+    "RevertRiskAPIModel",
+    "RevertRiskMultilingualModel",
+    "RevscoringModel",
 ]
