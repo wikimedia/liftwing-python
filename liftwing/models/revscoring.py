@@ -88,6 +88,20 @@ drafttopic_metadata = ModelMetadata(
     wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
 )
 
+itemquality_metadata = ModelMetadata(
+    name="Revscoring Wikidata Item Quality model",
+    classname="RevscoringModel",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/itemQualityPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
+)
+
+itemtopic_metadata = ModelMetadata(
+    name="Revscoring Wikidata Item Topic model",
+    classname="RevscoringModel",
+    api_documentation_url=f"{REVSCORING_API_REFERENCE_URL}/itemTopicPredict",
+    wmf_model_card_url=REVSCORING_MODEL_CARD_URL,
+)
+
 
 class RevscoringModel(LiftwingModel):
     """A client for the revscoring models, for example "enwiki-damaging".

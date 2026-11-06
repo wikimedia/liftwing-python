@@ -34,6 +34,8 @@ from .models.revscoring import (
     articletopic_metadata,
     draftquality_metadata,
     drafttopic_metadata,
+    itemquality_metadata,
+    itemtopic_metadata,
 )
 
 __metadata__ = [
@@ -46,6 +48,8 @@ __metadata__ = [
     drafttopic_metadata,
     edit_check_metadata,
     goodfaith_metadata,
+    itemquality_metadata,
+    itemtopic_metadata,
     langid_metadata,
     outlink_articletopic_metadata,
     readability_metadata,
