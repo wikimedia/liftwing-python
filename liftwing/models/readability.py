@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from .liftwing_model import LiftwingModel, ModelMetadata
+from .liftwing_model import API_REFERENCE_URL, LiftwingModel, ModelMetadata
 
 
 class ReadabilityPayload(BaseModel):
@@ -21,8 +21,8 @@ class ReadabilityPayload(BaseModel):
 readability_metadata = ModelMetadata(
     name="Multilingual readability",
     classname="ReadabilityModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_readability_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Proposed/Multilingual_readability_model_card",
+    api_documentation_url=f"{API_REFERENCE_URL}#/Revision%20quality/readabilityPredict",
+    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Multilingual_readability_model_card",
 )
 
 

@@ -2,7 +2,7 @@ from typing import List, Union
 
 from pydantic import BaseModel, Field, model_validator
 
-from .liftwing_model import LiftwingModel, ModelMetadata
+from .liftwing_model import API_REFERENCE_URL, LiftwingModel, ModelMetadata
 
 
 class RevertRiskPayload(BaseModel):
@@ -39,8 +39,8 @@ class RevertRiskBatchPayload(BaseModel):
 revertrisk_metadata = ModelMetadata(
     name="Language-agnostic revert risk",
     classname="RevertRiskAPIModel",
-    api_documentation_url="https://api.wikimedia.org/wiki/Lift_Wing_API/Reference/Get_reverted_risk_language_agnostic_prediction",
-    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Proposed/Language-agnostic_revert_risk",
+    api_documentation_url=f"{API_REFERENCE_URL}#/Revision%20quality/revertriskLanguageAgnosticPredict",
+    wmf_model_card_url="https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Language-agnostic_revert_risk",
 )
 
 
