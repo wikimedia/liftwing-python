@@ -6,7 +6,11 @@ from liftwing import (
     RevertRiskAPIModel,
     RevscoringModel,
 )
-from liftwing.models.liftwing_model import DEFAULT_TIMEOUT, LiftwingModel
+from liftwing.models.liftwing_model import (
+    DEFAULT_TIMEOUT,
+    LIBRARY_USER_AGENT,
+    LiftwingModel,
+)
 
 URL = "https://api.wikimedia.org/service/lw/inference/v1/models/test:predict"
 
@@ -69,3 +73,25 @@ def test_request_does_not_add_default_values(http):
     ArticleTopicModel().request({"page_title": "Douglas_Adams", "lang": "en"})
 
     assert http.last.kwargs["json"] == {"page_title": "Douglas_Adams", "lang": "en"}
+
+
+def test_request_sends_library_user_agent(http):
+    LiftwingModel(URL).request({})
+
+    assert http.last.kwargs["headers"]["User-Agent"] == LIBRARY_USER_AGENT
+    assert LIBRARY_USER_AGENT.startswith("liftwing-python/")
+
+
+def test_custom_user_agent_comes_before_library_user_agent(http):
+    user_agent = "MyTool/1.0 (https://example.org/MyTool)"
+    RevertRiskAPIModel(user_agent=user_agent).request({"lang": "en", "rev_id": 1})
+
+    assert http.last.kwargs["headers"]["User-Agent"] == (
+        f"{user_agent} {LIBRARY_USER_AGENT}"
+    )
+
+
+def test_caller_headers_override_default_headers(http):
+    LiftwingModel(URL).request({}, headers={"User-Agent": "Other", "X-Test": "1"})
+
+    assert http.last.kwargs["headers"] == {"User-Agent": "Other", "X-Test": "1"}
