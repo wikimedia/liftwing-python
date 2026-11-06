@@ -1,3 +1,4 @@
+from .models.article_country import ArticleCountryModel, article_country_metadata
 from .models.article_quality import (
     ArticleQualityModel,
     articlequality_language_agnostic_metadata,
@@ -33,6 +34,7 @@ from .models.revscoring import (
 )
 
 __metadata__ = [
+    article_country_metadata,
     articlequality_language_agnostic_metadata,
     articlequality_metadata,
     articletopic_metadata,
@@ -51,6 +53,7 @@ __metadata__ = [
     revertrisk_wikidata_metadata,
 ]
 __all__ = [
+    "ArticleCountryModel",
     "ArticleQualityModel",
     "ArticleTopicModel",
     "LanguageIdModel",
