@@ -98,9 +98,10 @@ class RevscoringModel(LiftwingModel):
         model_type: RevscoringModelType,
         wikicode: str,
         base_url: str = "https://api.wikimedia.org/service/lw/inference/v1/models",
+        **kwargs,
     ):
         if model_type not in get_args(RevscoringModelType):
             raise ValueError(f"Unknown revscoring model type: {model_type!r}")
         super().__init__(
-            f"{base_url}/{wikicode}-{model_type}:predict", RevscoringPayload
+            f"{base_url}/{wikicode}-{model_type}:predict", RevscoringPayload, **kwargs
         )
