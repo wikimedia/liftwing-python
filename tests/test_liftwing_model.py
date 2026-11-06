@@ -95,3 +95,15 @@ def test_caller_headers_override_default_headers(http):
     LiftwingModel(URL).request({}, headers={"User-Agent": "Other", "X-Test": "1"})
 
     assert http.last.kwargs["headers"] == {"User-Agent": "Other", "X-Test": "1"}
+
+
+def test_request_without_access_token_sends_no_authorization(http):
+    LiftwingModel(URL).request({})
+
+    assert "Authorization" not in http.last.kwargs["headers"]
+
+
+def test_request_sends_access_token(http):
+    RevertRiskAPIModel(access_token="abc123").request({"lang": "en", "rev_id": 1})
+
+    assert http.last.kwargs["headers"]["Authorization"] == "Bearer abc123"
