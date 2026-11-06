@@ -107,3 +107,18 @@ def test_request_sends_access_token(http):
     RevertRiskAPIModel(access_token="abc123").request({"lang": "en", "rev_id": 1})
 
     assert http.last.kwargs["headers"]["Authorization"] == "Bearer abc123"
+
+
+def test_request_uses_the_given_method(http):
+    LiftwingModel(URL).request({"rev_id": 1}, method="PUT")
+
+    assert http.last.method == "PUT"
+    assert http.last.kwargs["json"] == {"rev_id": 1}
+
+
+def test_get_request_sends_query_parameters(http):
+    LiftwingModel(URL).request({"source": "en", "debug": True}, method="GET")
+
+    assert http.last.method == "GET"
+    assert http.last.kwargs["params"] == {"source": "en", "debug": "true"}
+    assert "json" not in http.last.kwargs
