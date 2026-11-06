@@ -1,5 +1,6 @@
-from liftwing import __metadata__
 from pprint import pprint
+
+from liftwing import __metadata__
 
 
 def main():

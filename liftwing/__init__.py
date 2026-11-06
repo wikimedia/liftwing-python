@@ -40,15 +40,15 @@ from .models.revertrisk_wikidata import (
 )
 from .models.revscoring import (
     RevscoringModel,
-    damaging_metadata,
-    goodfaith_metadata,
-    reverted_metadata,
     articlequality_metadata,
     articletopic_metadata,
+    damaging_metadata,
     draftquality_metadata,
     drafttopic_metadata,
+    goodfaith_metadata,
     itemquality_metadata,
     itemtopic_metadata,
+    reverted_metadata,
 )
 
 __metadata__ = [
