@@ -7,6 +7,7 @@ from .models.article_topic import ArticleTopicModel, outlink_articletopic_metada
 from .models.edit_check import EditCheckModel, edit_check_metadata
 from .models.language_id import LanguageIdModel, langid_metadata
 from .models.liftwing_model import LiftWingError
+from .models.llm import LLMChatModel, llm_chat_metadata
 from .models.readability import ReadabilityModel, readability_metadata
 from .models.reference_need import ReferenceNeedModel, reference_need_metadata
 from .models.reference_risk import ReferenceRiskModel, reference_risk_metadata
@@ -51,6 +52,7 @@ __metadata__ = [
     itemquality_metadata,
     itemtopic_metadata,
     langid_metadata,
+    llm_chat_metadata,
     outlink_articletopic_metadata,
     readability_metadata,
     reference_need_metadata,
@@ -67,6 +69,7 @@ __all__ = [
     "ArticleQualityModel",
     "ArticleTopicModel",
     "EditCheckModel",
+    "LLMChatModel",
     "LanguageIdModel",
     "LiftWingError",
     "ReadabilityModel",
