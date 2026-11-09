@@ -1,3 +1,7 @@
+from .models.article_quality import (
+    ArticleQualityModel,
+    articlequality_language_agnostic_metadata,
+)
 from .models.article_topic import ArticleTopicModel, outlink_articletopic_metadata
 from .models.language_id import LanguageIdModel, langid_metadata
 from .models.liftwing_model import LiftWingError
@@ -29,6 +33,7 @@ from .models.revscoring import (
 )
 
 __metadata__ = [
+    articlequality_language_agnostic_metadata,
     articlequality_metadata,
     articletopic_metadata,
     damaging_metadata,
@@ -46,6 +51,7 @@ __metadata__ = [
     revertrisk_wikidata_metadata,
 ]
 __all__ = [
+    "ArticleQualityModel",
     "ArticleTopicModel",
     "LanguageIdModel",
     "LiftWingError",

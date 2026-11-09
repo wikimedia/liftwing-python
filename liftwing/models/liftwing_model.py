@@ -1,9 +1,9 @@
 from abc import ABC
 from importlib.metadata import PackageNotFoundError, version
-from typing import Any, Dict, Optional
+from typing import Annotated, Any, Dict, Optional
 
 import requests
-from pydantic import BaseModel, TypeAdapter
+from pydantic import BaseModel, PlainSerializer, TypeAdapter
 
 # The API gateway stops a request after 30 seconds. This default is longer,
 # so that the client gets the error response from the gateway.
@@ -16,6 +16,16 @@ API_REFERENCE_URL = (
     "https://wikitech.wikimedia.org/w/index.php"
     "?title=Special:RestSandbox&api=lift-wing/v1"
 )
+
+
+# Some model servers read boolean inputs as strings, for example "true".
+# A field of this type accepts a boolean and sends "true" or "false".
+StrBool = Annotated[
+    bool,
+    PlainSerializer(
+        lambda value: str(value).lower(), return_type=str, when_used="json"
+    ),
+]
 
 
 def _library_user_agent() -> str:
