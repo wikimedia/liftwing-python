@@ -2,7 +2,7 @@ from abc import ABC
 from typing import Any, Dict, Type
 
 import requests
-from pydantic import BaseModel
+from pydantic import BaseModel, TypeAdapter
 
 # The API gateway stops a request after 30 seconds. This default is longer,
 # so that the client gets the error response from the gateway.
@@ -36,6 +36,7 @@ class LiftwingModel(ABC):
         self.base_url = base_url
         self.payload_model = payload_model
         self.timeout = timeout
+        self._payload_adapter = TypeAdapter(payload_model) if payload_model else None
 
     def request(
         self,
@@ -58,8 +59,7 @@ class LiftwingModel(ABC):
         - LiftWingError: The API returns an HTTP error status.
         - requests.Timeout: The API does not respond before the timeout.
         """
-        if self.payload_model:
-            _ = self.payload_model(**payload)
+        payload = self._prepare_payload(payload)
 
         if headers is None:
             headers = {}
@@ -73,6 +73,22 @@ class LiftwingModel(ABC):
             )
 
         return response.json()
+
+    def _prepare_payload(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """Validate the payload and return the data to send.
+
+        The validation changes values to the declared types, for example the
+        string "123" to the integer 123. The result keeps the keys that the
+        payload model does not declare. The result does not include default
+        values for fields that the caller did not set.
+        """
+        if self._payload_adapter is None:
+            return payload
+        validated = self._payload_adapter.validate_python(payload)
+        data = self._payload_adapter.dump_python(
+            validated, mode="json", exclude_unset=True
+        )
+        return {**payload, **data}
 
 
 def _response_body(response: requests.Response) -> Any:
