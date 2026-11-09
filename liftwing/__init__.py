@@ -8,6 +8,7 @@ from .models.language_id import LanguageIdModel, langid_metadata
 from .models.liftwing_model import LiftWingError
 from .models.readability import ReadabilityModel, readability_metadata
 from .models.reference_need import ReferenceNeedModel, reference_need_metadata
+from .models.reference_risk import ReferenceRiskModel, reference_risk_metadata
 from .models.revertrisk import RevertRiskAPIModel, revertrisk_metadata
 from .models.revertrisk_multilingual import (
     RevertRiskMultilingualModel,
@@ -47,6 +48,7 @@ __metadata__ = [
     outlink_articletopic_metadata,
     readability_metadata,
     reference_need_metadata,
+    reference_risk_metadata,
     reverted_metadata,
     revertrisk_metadata,
     revertrisk_multilingual_metadata,
@@ -62,6 +64,7 @@ __all__ = [
     "LiftWingError",
     "ReadabilityModel",
     "ReferenceNeedModel",
+    "ReferenceRiskModel",
     "RevertRiskAPIModel",
     "RevertRiskMultilingualModel",
     "RevertRiskMultilingualPreSaveModel",
