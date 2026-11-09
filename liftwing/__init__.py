@@ -10,8 +10,14 @@ from .models.liftwing_model import LiftWingError
 from .models.llm import LLMChatModel, llm_chat_metadata
 from .models.readability import ReadabilityModel, readability_metadata
 from .models.recommendation import (
+    PageCollectionGroupsModel,
+    PageCollectionMembershipModel,
+    PageCollectionsModel,
     SectionTranslationRecommendationModel,
     TranslationRecommendationModel,
+    page_collection_groups_metadata,
+    page_collection_membership_metadata,
+    page_collections_metadata,
     section_translation_recommendation_metadata,
     translation_recommendation_metadata,
 )
@@ -60,6 +66,9 @@ __metadata__ = [
     langid_metadata,
     llm_chat_metadata,
     outlink_articletopic_metadata,
+    page_collection_groups_metadata,
+    page_collection_membership_metadata,
+    page_collections_metadata,
     readability_metadata,
     reference_need_metadata,
     reference_risk_metadata,
@@ -80,6 +89,9 @@ __all__ = [
     "LLMChatModel",
     "LanguageIdModel",
     "LiftWingError",
+    "PageCollectionGroupsModel",
+    "PageCollectionMembershipModel",
+    "PageCollectionsModel",
     "ReadabilityModel",
     "ReferenceNeedModel",
     "ReferenceRiskModel",
