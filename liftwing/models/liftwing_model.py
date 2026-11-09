@@ -51,6 +51,9 @@ class LiftwingModel(ABC):
       The client adds its own name and version. The Wikimedia User-Agent
       policy requires this information:
       https://meta.wikimedia.org/wiki/User-Agent_policy
+    - access_token (str): An OAuth 2.0 access token. Authenticated clients
+      get a higher rate limit. See
+      https://www.mediawiki.org/wiki/Wikimedia_APIs/Authentication
     """
 
     def __init__(
@@ -60,6 +63,7 @@ class LiftwingModel(ABC):
         *,
         timeout: float = DEFAULT_TIMEOUT,
         user_agent: Optional[str] = None,
+        access_token: Optional[str] = None,
     ):
         self.base_url = base_url
         self.payload_model = payload_model
@@ -67,6 +71,7 @@ class LiftwingModel(ABC):
         self.user_agent = (
             f"{user_agent} {LIBRARY_USER_AGENT}" if user_agent else LIBRARY_USER_AGENT
         )
+        self.access_token = access_token
         self._payload_adapter = TypeAdapter(payload_model) if payload_model else None
 
     def request(
@@ -107,6 +112,8 @@ class LiftwingModel(ABC):
     def _headers(self, headers: Optional[Dict[str, str]]) -> Dict[str, str]:
         """Return the default headers, updated with the headers of the caller."""
         result = {"User-Agent": self.user_agent}
+        if self.access_token:
+            result["Authorization"] = f"Bearer {self.access_token}"
         result.update(headers or {})
         return result
 
