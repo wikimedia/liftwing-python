@@ -74,6 +74,9 @@ class LiftwingModel(ABC):
       https://www.mediawiki.org/wiki/Wikimedia_APIs/Authentication
     """
 
+    # The HTTP method of the endpoint. A subclass can change it.
+    http_method = "POST"
+
     def __init__(
         self,
         base_url: str = None,
@@ -95,7 +98,7 @@ class LiftwingModel(ABC):
     def request(
         self,
         payload: Dict[str, Any],
-        method: str = "POST",
+        method: Optional[str] = None,
         headers: Dict[str, str] = None,
     ) -> Dict[str, Any]:
         """
@@ -103,7 +106,9 @@ class LiftwingModel(ABC):
 
         Args:
         - payload (Dict[str, Any]): The payload to send with the request.
-        - method (str): The HTTP method to use for the request (default is "POST").
+        - method (str): The HTTP method to use for the request. The default is
+          the method of the endpoint, usually "POST". A "GET" request sends the
+          payload as query parameters.
         - headers (Dict[str, str]): Optional headers to include in the request.
 
         Returns:
@@ -116,9 +121,14 @@ class LiftwingModel(ABC):
         payload = self._prepare_payload(payload)
 
         headers = self._headers(headers)
+        method = (method or self.http_method).upper()
+        if method == "GET":
+            data = {"params": _query_params(payload)}
+        else:
+            data = {"json": payload}
 
-        response = requests.post(
-            self.base_url, json=payload, headers=headers, timeout=self.timeout
+        response = requests.request(
+            method, self.base_url, headers=headers, timeout=self.timeout, **data
         )
         if not response.ok:
             raise LiftWingError(
@@ -152,6 +162,17 @@ class LiftwingModel(ABC):
         return {**payload, **data}
 
 
+def _query_params(payload: Dict[str, Any]) -> Dict[str, Any]:
+    """Return the payload as query parameters.
+
+    The parameters use "true" and "false" for boolean values.
+    """
+    return {
+        key: str(value).lower() if isinstance(value, bool) else value
+        for key, value in payload.items()
+    }
+
+
 def _response_body(response: requests.Response) -> Any:
     """Return the response body as JSON data, or as text if it is not JSON."""
     try:
@@ -164,7 +185,7 @@ class ModelMetadata(BaseModel):
     name: str
     classname: str
     api_documentation_url: str
-    wmf_model_card_url: str
+    wmf_model_card_url: Optional[str] = None
 
     def __repr__(self):
         return (

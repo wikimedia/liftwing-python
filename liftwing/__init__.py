@@ -9,6 +9,12 @@ from .models.language_id import LanguageIdModel, langid_metadata
 from .models.liftwing_model import LiftWingError
 from .models.llm import LLMChatModel, llm_chat_metadata
 from .models.readability import ReadabilityModel, readability_metadata
+from .models.recommendation import (
+    SectionTranslationRecommendationModel,
+    TranslationRecommendationModel,
+    section_translation_recommendation_metadata,
+    translation_recommendation_metadata,
+)
 from .models.reference_need import ReferenceNeedModel, reference_need_metadata
 from .models.reference_risk import ReferenceRiskModel, reference_risk_metadata
 from .models.revertrisk import RevertRiskAPIModel, revertrisk_metadata
@@ -63,6 +69,8 @@ __metadata__ = [
     revertrisk_multilingual_pre_save_metadata,
     revertrisk_pre_save_metadata,
     revertrisk_wikidata_metadata,
+    section_translation_recommendation_metadata,
+    translation_recommendation_metadata,
 ]
 __all__ = [
     "ArticleCountryModel",
@@ -81,4 +89,6 @@ __all__ = [
     "RevertRiskPreSaveModel",
     "RevertRiskWikidataModel",
     "RevscoringModel",
+    "SectionTranslationRecommendationModel",
+    "TranslationRecommendationModel",
 ]
