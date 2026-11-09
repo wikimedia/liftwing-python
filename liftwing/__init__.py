@@ -7,6 +7,10 @@ from .models.revertrisk_multilingual import (
     RevertRiskMultilingualModel,
     revertrisk_multilingual_metadata,
 )
+from .models.revertrisk_wikidata import (
+    RevertRiskWikidataModel,
+    revertrisk_wikidata_metadata,
+)
 from .models.revscoring import (
     RevscoringModel,
     damaging_metadata,
@@ -31,6 +35,7 @@ __metadata__ = [
     reverted_metadata,
     revertrisk_metadata,
     revertrisk_multilingual_metadata,
+    revertrisk_wikidata_metadata,
 ]
 __all__ = [
     "ArticleTopicModel",
@@ -39,5 +44,6 @@ __all__ = [
     "ReadabilityModel",
     "RevertRiskAPIModel",
     "RevertRiskMultilingualModel",
+    "RevertRiskWikidataModel",
     "RevscoringModel",
 ]
