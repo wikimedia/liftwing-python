@@ -1,5 +1,6 @@
 from abc import ABC
-from typing import Any, Dict, Type
+from importlib.metadata import PackageNotFoundError, version
+from typing import Any, Dict, Optional, Type
 
 import requests
 from pydantic import BaseModel, TypeAdapter
@@ -7,6 +8,21 @@ from pydantic import BaseModel, TypeAdapter
 # The API gateway stops a request after 30 seconds. This default is longer,
 # so that the client gets the error response from the gateway.
 DEFAULT_TIMEOUT = 60.0
+
+
+def _library_user_agent() -> str:
+    """Return the User-Agent part that identifies this library."""
+    try:
+        library_version = version("liftwing")
+    except PackageNotFoundError:
+        library_version = "unknown"
+    return (
+        f"liftwing-python/{library_version}"
+        " (https://github.com/wikimedia/liftwing-python)"
+    )
+
+
+LIBRARY_USER_AGENT = _library_user_agent()
 
 
 class LiftWingError(Exception):
@@ -26,16 +42,31 @@ class LiftWingError(Exception):
 
 
 class LiftwingModel(ABC):
+    """The base class of the Lift Wing model clients.
+
+    All model classes accept these keyword arguments:
+    - timeout (float): The time in seconds to wait for a response.
+    - user_agent (str): Identifies your tool and gives contact information,
+      for example "MyTool/1.0 (https://example.org/MyTool; me@example.org)".
+      The client adds its own name and version. The Wikimedia User-Agent
+      policy requires this information:
+      https://meta.wikimedia.org/wiki/User-Agent_policy
+    """
+
     def __init__(
         self,
         base_url: str = None,
         payload_model: Type[BaseModel] = None,
         *,
         timeout: float = DEFAULT_TIMEOUT,
+        user_agent: Optional[str] = None,
     ):
         self.base_url = base_url
         self.payload_model = payload_model
         self.timeout = timeout
+        self.user_agent = (
+            f"{user_agent} {LIBRARY_USER_AGENT}" if user_agent else LIBRARY_USER_AGENT
+        )
         self._payload_adapter = TypeAdapter(payload_model) if payload_model else None
 
     def request(
@@ -61,8 +92,7 @@ class LiftwingModel(ABC):
         """
         payload = self._prepare_payload(payload)
 
-        if headers is None:
-            headers = {}
+        headers = self._headers(headers)
 
         response = requests.post(
             self.base_url, json=payload, headers=headers, timeout=self.timeout
@@ -73,6 +103,12 @@ class LiftwingModel(ABC):
             )
 
         return response.json()
+
+    def _headers(self, headers: Optional[Dict[str, str]]) -> Dict[str, str]:
+        """Return the default headers, updated with the headers of the caller."""
+        result = {"User-Agent": self.user_agent}
+        result.update(headers or {})
+        return result
 
     def _prepare_payload(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """Validate the payload and return the data to send.
