@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "liftwing"
-version = "0.1.1"
+version = "0.2.0"
 authors = [
     {name = "Mercelis Vaughan", email = "mercelisvaughan@gmail.com"},
     {name = "WMF Machine Learning Team", email = "ml@wikimedia.org"}
