@@ -30,3 +30,7 @@ include = ["liftwing*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff.lint]
+# Add import sorting (isort) to the default rules.
+extend-select = ["I"]
