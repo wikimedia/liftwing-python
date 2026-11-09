@@ -11,7 +11,7 @@ authors = [
 ]
 description = "A python client to interact with Machine Learning microservices hosted on Lift Wing"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
 ]
