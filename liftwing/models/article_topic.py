@@ -46,5 +46,6 @@ class ArticleTopicModel(LiftwingModel):
     def __init__(
         self,
         base_url="https://api.wikimedia.org/service/lw/inference/v1/models/outlink-topic-model:predict",
+        **kwargs,
     ):
-        super().__init__(base_url, ArticleTopicPayload)
+        super().__init__(base_url, ArticleTopicPayload, **kwargs)
