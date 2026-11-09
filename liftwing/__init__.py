@@ -4,6 +4,7 @@ from .models.article_quality import (
     articlequality_language_agnostic_metadata,
 )
 from .models.article_topic import ArticleTopicModel, outlink_articletopic_metadata
+from .models.edit_check import EditCheckModel, edit_check_metadata
 from .models.language_id import LanguageIdModel, langid_metadata
 from .models.liftwing_model import LiftWingError
 from .models.readability import ReadabilityModel, readability_metadata
@@ -43,6 +44,7 @@ __metadata__ = [
     damaging_metadata,
     draftquality_metadata,
     drafttopic_metadata,
+    edit_check_metadata,
     goodfaith_metadata,
     langid_metadata,
     outlink_articletopic_metadata,
@@ -60,6 +62,7 @@ __all__ = [
     "ArticleCountryModel",
     "ArticleQualityModel",
     "ArticleTopicModel",
+    "EditCheckModel",
     "LanguageIdModel",
     "LiftWingError",
     "ReadabilityModel",
